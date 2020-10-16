@@ -1,0 +1,18 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.154.93:8848,192.168.154.93:8849,192.168.154.93:8850
+        #namespace: 8551d28d-04a5-4c16-a53e-8496a97ab41c
+      config:
+        server-addr: 192.168.154.93:8848,192.168.154.93:8849,192.168.154.93:8850
+        file-extension: yaml
+        namespace: 8551d28d-04a5-4c16-a53e-8496a97ab41c
+        group: TEST_GROUP
+
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+# nacos-config-client-dev.yaml
