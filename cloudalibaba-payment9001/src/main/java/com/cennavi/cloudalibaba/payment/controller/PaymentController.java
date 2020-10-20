@@ -27,11 +27,20 @@ public class PaymentController {
     @Resource
     PaymentService paymentService;
 
+    /**
+     * 返回服务IP，端口
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/payment/nacos/{id}")
     public String getPayment(@PathVariable("id") Integer id) {
         return "nacos registry, serverPort: " + serverPort + "\t id" + id;
     }
 
+    /**
+     * 查询配置文件信息
+     * @return
+     */
     @GetMapping("/payment/config/info")
     public String getConfigInfo(){
         return configInfo;
@@ -66,6 +75,13 @@ public class PaymentController {
 
 
         return paymentService.paymentCircuitBreaker(id);
+    }
+
+    @GetMapping("/payment/hystrix/flowlimit/{id}")
+    public String paymentFlowlimit(@PathVariable("id") Integer id){
+
+
+        return paymentService.paymentFlowlimit(id);
     }
 
 

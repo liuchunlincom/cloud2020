@@ -3,6 +3,7 @@ package com.cennavi.cloudalibaba.order.controller;
 import com.cennavi.cloudalibaba.order.service.PaymentFeignService;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,20 +40,82 @@ public class OrderNacosController {
         return paymentFeignService.paymentTask();
     }
 
-    @GetMapping("/payment/hystrix/ok/{id}")
+    @GetMapping("/consumer/payment/hystrix/ok/{id}")
     public Object paymentOk(@PathVariable("id") Integer id){
         return paymentFeignService.paymentOk(id);
     }
 
+    /**
+     * 降级测试
+     * @param id
+     * @return
+     */
     @HystrixCommand
-    @GetMapping("/payment/hystrix/timeout/{id}")
+    @GetMapping("/consumer/payment/hystrix/timeout/{id}")
     public Object paymentTimeout(@PathVariable("id") Integer id){
 
         return paymentFeignService.paymentTimeout(id);
     }
-    @GetMapping("/payment/hystrix/break/{id}")
+
+    /**
+     * 熔断测试
+     * @param id
+     * @return
+     */
+    @GetMapping("/consumer/payment/hystrix/break/{id}")
     public String paymentBreak(@PathVariable("id") Integer id){
         return paymentFeignService.paymentBreak(id);
+    }
+
+    /**
+     * 限流测试
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "flowLimitMethod",
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.strategy", value = "THREAD"),
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000"),
+                    @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "2")},
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize", value = "5"),
+                    @HystrixProperty(name = "maxQueueSize", value = "10"),
+                    @HystrixProperty(name = "defaut.queueSizeRejectionThread", value = "15")
+            })
+    @GetMapping("/consumer/payment/hystrix/flowlimit/{id}")
+    public String paymentFlowlimit(@PathVariable("id") Integer id){
+
+
+        return paymentFeignService.paymentFlowlimit(id);
+    }
+
+
+    /**
+     * 限流测试
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "flowLimitMethod",
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE"),
+                    @HystrixProperty(name = "execution.timeout.enabled", value = "false"),
+                    @HystrixProperty(name = "execution.isolation.thread.interruptOnTimeout", value = "false"),
+                    @HystrixProperty(name = "execution.isolation.semaphore.maxConcurrentRequests", value = "2")}
+            )
+    @GetMapping("/consumer/payment/hystrix/flowlimit2/{id}")
+    public String paymentFlowlimit2(@PathVariable("id") Integer id){
+
+
+        return paymentFeignService.paymentFlowlimit(id);
+    }
+
+
+
+    public String flowLimitMethod(Integer id){
+
+
+        return "限流处理" + id + ":"+System.currentTimeMillis();
     }
 
 

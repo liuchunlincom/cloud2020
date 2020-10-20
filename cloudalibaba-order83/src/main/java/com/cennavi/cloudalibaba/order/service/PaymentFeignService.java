@@ -30,4 +30,7 @@ public interface PaymentFeignService {//, fallback = PaymentFeignFallbackService
 
     @GetMapping("/payment/hystrix/break/{id}")
     public String paymentBreak(@PathVariable("id") Integer id);
+
+    @GetMapping("/payment/hystrix/flowlimit/{id}")
+    String paymentFlowlimit(@PathVariable("id")Integer id);
 }

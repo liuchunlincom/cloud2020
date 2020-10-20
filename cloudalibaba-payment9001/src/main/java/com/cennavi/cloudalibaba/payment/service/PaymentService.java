@@ -40,7 +40,9 @@ public class PaymentService {
     }
 
     // 服务熔断
-    @HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback",commandProperties ={
+    @HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback",
+            threadPoolKey="getOrderFlowThread",
+            commandProperties ={
             @HystrixProperty(name = "circuitBreaker.enabled",value = "true"), //是否开启断路器
             @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"), //请求次数
             @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"), //时间窗口期
@@ -59,4 +61,8 @@ public class PaymentService {
     }
 
 
+    public String paymentFlowlimit(Integer id) {
+
+        return "限流测试" + id + ":" + System.currentTimeMillis();
+    }
 }

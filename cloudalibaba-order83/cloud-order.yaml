@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cloud-order
+  name: cloud-order
+spec:
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 83
+    nodePort: 83
+  selector:
+    app: cloud-order
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-order-deployment
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: cloud-order
+  template:
+    metadata:
+      labels:
+        app: cloud-order
+    spec:
+      containers:
+      - name: cloud-order
+        image: rain2020/cloud-order:v1
+        ports:
+        - containerPort: 83
