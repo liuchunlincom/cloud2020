@@ -3,6 +3,15 @@ server:
 spring:
   application:
     name: nacos-order-consumer
+  session:
+      store-type: redis
+  redis:
+    database: 1
+    host: 192.168.154.42
+    port: 7379
+    password: Cennavi@2020
+    timeout: 5000ms
+
   zipkin:
     base-url: http://192.168.154.93:9411
   sleuth:

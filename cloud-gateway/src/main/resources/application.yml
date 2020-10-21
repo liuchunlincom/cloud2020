@@ -27,6 +27,12 @@ spring:
           uri: lb://nacos-order-consumer
           predicates:
             - Path=/consumer/payment/config/info
+
+        - id: order_routh2
+        #          uri: http://localhost:9001
+          uri: lb://nacos-order-consumer
+          predicates:
+            - Path=/consumer/**
     nacos:
       discovery:
         server-addr: 192.168.154.93:8848,192.168.154.93:8849,192.168.154.93:8850
