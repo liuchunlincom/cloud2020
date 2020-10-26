@@ -1,0 +1,12 @@
+server:
+  port: 9015
+spring:
+  application:
+    name: cloud-admin-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.154.93:8848,192.168.154.93:8849,192.168.154.93:8850
+        #namespace: 91f262e7-a1ba-4b36-90ad-c0f37519c261 #dev
+        namespace: 8551d28d-04a5-4c16-a53e-8496a97ab41c #test
+        register-enabled: true

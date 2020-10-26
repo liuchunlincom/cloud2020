@@ -80,14 +80,13 @@ public class OrderNacosController {
                     @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "2")},
             threadPoolProperties = {
                     @HystrixProperty(name = "coreSize", value = "5"),
-                    @HystrixProperty(name = "maxQueueSize", value = "10"),
-                    @HystrixProperty(name = "defaut.queueSizeRejectionThread", value = "15")
+                    @HystrixProperty(name = "maxQueueSize", value = "5")
             })
     @GetMapping("/consumer/payment/hystrix/flowlimit/{id}")
     public String paymentFlowlimit(@PathVariable("id") Integer id){
 
-
-        return paymentFeignService.paymentFlowlimit(id);
+        return "限流测试正常返回" + id;
+        //return paymentFeignService.paymentFlowlimit(id);
     }
 
 
@@ -106,13 +105,14 @@ public class OrderNacosController {
     @GetMapping("/consumer/payment/hystrix/flowlimit2/{id}")
     public String paymentFlowlimit2(@PathVariable("id") Integer id){
 
-
-        return paymentFeignService.paymentFlowlimit(id);
+        return "限流测试正常返回" + id;
+        //return paymentFeignService.paymentFlowlimit(id);
     }
 
 
 
     public String flowLimitMethod(Integer id){
+        log.warn(""+id);
 
 
         return "限流处理" + id + ":"+System.currentTimeMillis();

@@ -30,6 +30,7 @@ spec:
     spec:
       containers:
       - name: cloud-order
-        image: rain2020/cloud-order:v1
+        image: cloud-order:v1
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 83

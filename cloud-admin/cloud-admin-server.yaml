@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cloud-admin-server
+  name: cloud-admin-server
+spec:
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 9015
+    nodePort: 9015
+  selector:
+    app: cloud-admin-server
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-admin-server-deployment
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: cloud-admin-server
+  template:
+    metadata:
+      labels:
+        app: cloud-admin-server
+    spec:
+      containers:
+      - name: cloud-admin-server
+        image: cloud-admin-server:v1
+        ports:
+        - containerPort: 9015

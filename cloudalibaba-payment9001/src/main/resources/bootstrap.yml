@@ -5,13 +5,11 @@ spring:
     name: nacos-payment-provider
   cloud:
     nacos:
-      discovery:
-        server-addr: 192.168.154.93:8848,192.168.154.93:8849,192.168.154.93:8850
-        #namespace: 8551d28d-04a5-4c16-a53e-8496a97ab41c
       config:
         server-addr: 192.168.154.93:8848,192.168.154.93:8849,192.168.154.93:8850
         file-extension: yaml
-        namespace: 8551d28d-04a5-4c16-a53e-8496a97ab41c
+        #namespace: 91f262e7-a1ba-4b36-90ad-c0f37519c261 #dev
+        namespace: 8551d28d-04a5-4c16-a53e-8496a97ab41c #test
         group: TEST_GROUP
 
 # ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}

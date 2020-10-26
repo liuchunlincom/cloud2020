@@ -1,6 +1,10 @@
 spring:
   profiles:
-    active: test
+    active: dev
+  boot:
+    admin:
+      client:
+        url: http://192.168.154.34:9015
   zipkin:
     base-url: http://192.168.154.93:9411
   sleuth:
@@ -10,3 +14,4 @@ turbine:
   app-config: ribbon-hystrix #指定了被收集的app名称
   combine-host-port: true #同一主机多个服务使用hostname+port进行区分，此项默认为false，即同一主机多服务会合并成一个服务展示
   cluster-name-expression: new String("default") #指定集群名称
+

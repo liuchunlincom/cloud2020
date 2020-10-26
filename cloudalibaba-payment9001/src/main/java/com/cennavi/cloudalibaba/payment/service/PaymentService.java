@@ -25,8 +25,8 @@ public class PaymentService {
     })
     public String paymentInfo_TimeOut(Integer id) {
 
-        int timeNumber = 3000;
-        //timeNumber = 10/0;
+        int timeNumber = id*1000;
+        int a = 10/timeNumber;
         try {
             TimeUnit.MILLISECONDS.sleep(timeNumber);
         } catch (InterruptedException e) {
@@ -45,7 +45,7 @@ public class PaymentService {
             commandProperties ={
             @HystrixProperty(name = "circuitBreaker.enabled",value = "true"), //是否开启断路器
             @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"), //请求次数
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"), //时间窗口期
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "5000"), //时间窗口期
             @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60"),//失败率达到多少后跳闸
     })
     public String paymentCircuitBreaker(@PathVariable("id") Integer id) {

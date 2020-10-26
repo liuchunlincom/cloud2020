@@ -1,0 +1,20 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+  zipkin:
+    base-url: http://192.168.154.93:9411
+  sleuth:
+    sampler:
+      probability: 1 #采样率 1为全部采集
+#  cloud:
+#    alibaba:
+#      seata:
+#        tx-service-group: my_tx_group
+
+turbine:
+  app-config: ribbon-hystrix #指定了被收集的app名称
+  combine-host-port: true #同一主机多个服务使用hostname+port进行区分，此项默认为false，即同一主机多服务会合并成一个服务展示
+  cluster-name-expression: new String("default") #指定集群名称
+

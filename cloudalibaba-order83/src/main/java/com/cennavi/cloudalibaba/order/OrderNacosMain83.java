@@ -13,7 +13,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableFeignClients
 @EnableHystrix
 @EnableHystrixDashboard //图形化地址 http://localhost:83/hystrix
-@EnableRedisHttpSession//session共享
+//@EnableRedisHttpSession//session共享
 public class OrderNacosMain83 {
 
     public static void main(String[] args) {

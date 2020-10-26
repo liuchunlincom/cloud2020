@@ -6,19 +6,20 @@ metadata:
   name: cloud-payment
 spec:
   ports:
-  - port: 8081
+  - port: 9081
     protocol: TCP
     targetPort: 9001
+    nodePort: 9001
   selector:
     app: cloud-payment
-  type: ClusterIP
+  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cloud-payment-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
       matchLabels:
         app: cloud-payment
@@ -29,6 +30,7 @@ spec:
     spec:
       containers:
       - name: cloud-payment
-        image: rain2020/cloud-payment:latest
+        image: cloud-pament:v1
+        imagePullPolicy: Never
         ports:
         - containerPort: 9001

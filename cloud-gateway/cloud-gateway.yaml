@@ -6,7 +6,7 @@ metadata:
   name: cloud-gateway
 spec:
   ports:
-  - port: 9081
+  - port: 8081
     protocol: TCP
     targetPort: 80
     nodePort: 80
@@ -30,6 +30,7 @@ spec:
     spec:
       containers:
       - name: cloud-gateway
-        image: rain2020/cloud-gateway:v1
+        image: cloud-gateway:v1
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

@@ -1,43 +1,20 @@
-server:
-  port: 83
 spring:
-  application:
-    name: nacos-order-consumer
-  session:
-      store-type: redis
-  redis:
-    database: 1
-    host: 192.168.154.42
-    port: 7379
-    password: Cennavi@2020
-    timeout: 5000ms
-
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
   zipkin:
     base-url: http://192.168.154.93:9411
   sleuth:
       sampler:
         probability: 1 #采样率 1为全部采集
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 192.168.154.93:8848,192.168.154.93:8849,192.168.154.93:8850
-
-#负载均衡策略配置
-nacos-payment-provider:
-  ribbon:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
-    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
-    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
-    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
-    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
-
-feign:
-  hystrix:
-    enabled: true
-turbine:
-  app-config: ribbon-hystrix #指定了被收集的app名称
-  combine-host-port: true #同一主机多个服务使用hostname+port进行区分，此项默认为false，即同一主机多服务会合并成一个服务展示
-  cluster-name-expression: new String("default") #指定集群名称
-logging:
-  level:
-    org.springframework.cloud.openfeign: debug
+#  cloud:
+#    alibaba:
+#      seata:
+#        tx-service-group: my_tx_group
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false

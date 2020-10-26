@@ -1,0 +1,27 @@
+
+docker build -t cloud-account:v1 .
+docker build -t cloud-gateway:v1 .
+docker build -t cloud-order:v1 .
+docker build -t cloud-payment:v1 .
+docker build -t cloud-storage:v1 .
+
+docker save cloud-account:v1 -o cloud-account.tar
+docker save cloud-gateway:v1 -o cloud-gateway.tar
+docker save cloud-order:v1 -o cloud-order.tar
+docker save cloud-payment:v1 -o cloud-payment.tar
+docker save cloud-storage:v1 -o cloud-storage.tar
+
+scp *.tar 192.168.154.78:/APP/cloud/images/
+scp *.tar 192.168.154.82:/APP/cloud/images/
+
+docker load -i cloud-account.tar
+docker load -i cloud-gateway.tar
+docker load -i cloud-order.tar
+docker load -i cloud-payment.tar
+docker load -i cloud-storage.tar
+
+kubectl apply -f cloud-account.yaml
+kubectl apply -f cloud-gateway.yaml
+kubectl apply -f cloud-order.yaml
+kubectl apply -f cloud-payment.yaml
+kubectl apply -f cloud-storage.yaml

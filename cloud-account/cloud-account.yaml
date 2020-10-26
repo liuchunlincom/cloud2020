@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cloud-account
+  name: cloud-account
+spec:
+  ports:
+  - port: 8081
+    protocol: TCP
+    targetPort: 9005
+    nodePort: 9005
+  selector:
+    app: cloud-account
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-account-deployment
+spec:
+  replicas: 3
+  selector:
+      matchLabels:
+        app: cloud-account
+  template:
+    metadata:
+      labels:
+        app: cloud-account
+    spec:
+      containers:
+      - name: cloud-account
+        image: cloud-account:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9005
