@@ -1,9 +1,5 @@
 package com.cennavi.cloudalibaba.commons;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class CommonResult<T> {
     private Integer code;
     private String message;
