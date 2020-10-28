@@ -143,7 +143,7 @@
         </plugins>
     </build>
 
-    <!--<repositories>
+    <repositories>
 
             <repository>
                 <id>maven2-repository.dev.java.net</id>
@@ -160,5 +160,5 @@
                 <url>https://repo.osgeo.org/repository/release/</url>
             </repository>
 
-    </repositories>-->
+    </repositories>
 </project>
