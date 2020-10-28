@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -50,5 +51,10 @@ public class OrderServiceImpl implements OrderService {
     public Object list(String userid) {
          return orderDao.list(userid);
 
+    }
+
+    @Override
+    public Map<String, Object> queryByid(String orderid) {
+        return orderDao.queryById(orderid);
     }
 }

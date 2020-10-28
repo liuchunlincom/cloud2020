@@ -17,4 +17,6 @@ public interface OrderDao {
     //3 查询订单
     List<Map<String,Object>> list(String userid);
 
+    //根据订单编号查询订单
+    Map<String,Object> queryById(String orderid);
 }

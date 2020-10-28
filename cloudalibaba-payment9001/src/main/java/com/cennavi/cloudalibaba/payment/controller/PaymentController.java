@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 
 @RestController
@@ -35,8 +38,17 @@ public class PaymentController {
      * @return
      */
     @GetMapping(value = "/payment/nacos/{id}")
-    public String getPayment(@PathVariable("id") Integer id) {
-        return "nacos registry, serverPort: " + serverPort + "\t id" + id;
+    public String getPayment(@PathVariable("id") Integer id, HttpServletRequest request) {
+        InetAddress address = null;
+        String ip = null;
+        try {
+            address = InetAddress.getLocalHost();
+            ip = address.getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        return "nacos registry,ip:"+ ip +" serverPort: " + serverPort + "\t id" + id;
     }
 
     /**

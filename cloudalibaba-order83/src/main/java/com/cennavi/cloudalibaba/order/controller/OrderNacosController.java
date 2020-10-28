@@ -79,12 +79,13 @@ public class OrderNacosController {
                     @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
                     @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "2")},
             threadPoolProperties = {
-                    @HystrixProperty(name = "coreSize", value = "5"),
-                    @HystrixProperty(name = "maxQueueSize", value = "5")
+                    @HystrixProperty(name = "coreSize", value = "1"),
+                    @HystrixProperty(name = "maxQueueSize", value = "1")
             })
     @GetMapping("/consumer/payment/hystrix/flowlimit/{id}")
     public String paymentFlowlimit(@PathVariable("id") Integer id){
 
+        log.info("限流测试" + id);
         return "限流测试正常返回" + id;
         //return paymentFeignService.paymentFlowlimit(id);
     }
@@ -100,7 +101,7 @@ public class OrderNacosController {
                     @HystrixProperty(name = "execution.isolation.strategy", value = "SEMAPHORE"),
                     @HystrixProperty(name = "execution.timeout.enabled", value = "false"),
                     @HystrixProperty(name = "execution.isolation.thread.interruptOnTimeout", value = "false"),
-                    @HystrixProperty(name = "execution.isolation.semaphore.maxConcurrentRequests", value = "2")}
+                    @HystrixProperty(name = "execution.isolation.semaphore.maxConcurrentRequests", value = "1")}
             )
     @GetMapping("/consumer/payment/hystrix/flowlimit2/{id}")
     public String paymentFlowlimit2(@PathVariable("id") Integer id){

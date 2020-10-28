@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,19 @@ public class OrderDaoImpl implements OrderDao {
             return jdbcTemplate.queryForList(sql);
         } catch (DataAccessException e) {
             return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Map<String, Object> queryById(String orderid) {
+
+        String sql = "select * from base_order  where id = '" + orderid + "'";
+        try {
+
+            return jdbcTemplate.queryForMap(sql);
+
+        } catch (DataAccessException e) {
+            return new HashMap<>();
         }
     }
 }
