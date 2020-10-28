@@ -57,7 +57,9 @@ public class StorageController {
                             @PathVariable("y") int y,
                             @PathVariable("z") int z) {
 
-        log.info("pbf测试。。。。" + x + "," + y +"," + z);
+        System.out.println("11111111111111========");
+
+        log.info("pbf测试。。。。123" + x + "," + y +"," + z);
         //return storageService.pbdTest(z,x,y);
 
        /* response.setContentType("application/x-protobuf");
